@@ -1,5 +1,31 @@
 #Requires -RunAsAdministrator
 
+Function main() {
+
+    $wallpaper = "https://raw.githubusercontent.com/vbcnv/td/main/";
+    $folder = "C:\VBC NV\"
+
+    $exists = Test-CommandExists winget
+
+    if ($exists) {
+        winget install -h -e --id Adobe.Acrobat.Reader.64-bit
+        winget install -h -e --id EclipseAdoptium.Temurin.18.JRE
+        winget install -h -e --id Mozilla.Firefox
+        winget install -h -e --id Google.Chrome
+        winget install -h -e --id Microsoft.Edge
+        winget install -h -e --id Microsoft.OneDrive
+        winget install -h -e --id Microsoft.Office
+        winget install -h -e --id ZeroTier.ZeroTierOne
+        winget install -h -e --id 7zip.7zip
+        winget install -h -e --id BelgianGovernment.Belgium-eIDmiddleware
+        winget install -h -e --id BelgianGovernment.eIDViewer
+    }
+    
+    New-Item -Path $folder -ItemType Directory
+    Invoke-WebRequest -Uri $wallpaper -OutFile $folder + 'wallpaper.jpg'
+    Set-Wallpaper($folder + 'wallpaper.jpg')
+}
+
 Function Test-CommandExists
 {
     Param ($command)
@@ -12,18 +38,26 @@ Function Test-CommandExists
     Finally { $ErrorActionPreference = $oldPreference }
 }
 
-$exists = Test-CommandExists winget
+Function Set-Wallpaper($MyWallpaper) {
 
-if ($exists) {
-    winget install -e --id Adobe.Acrobat.Reader.64-bit
-    winget install -e --id EclipseAdoptium.Temurin.18.JRE
-    winget install -e --id Mozilla.Firefox
-    winget install -e --id Google.Chrome
-    winget install -e --id Microsoft.Edge
-    winget install -e --id Microsoft.OneDrive
-    winget install -e --id Microsoft.Office
-    winget install -e --id ZeroTier.ZeroTierOne
-    winget install -e --id 7zip.7zip
-    winget install -e --id BelgianGovernment.Belgium-eIDmiddleware
-    winget install -e --id BelgianGovernment.eIDViewer
+    $code = @' 
+    using System.Runtime.InteropServices; 
+    namespace Win32{ 
+        
+        public class Wallpaper{ 
+            [DllImport("user32.dll", CharSet=CharSet.Auto)] 
+            static extern int SystemParametersInfo (int uAction , int uParam , string lpvParam , int fuWinIni) ; 
+            
+            public static void SetWallpaper(string thePath){ 
+                SystemParametersInfo(20,0,thePath,3); 
+            }
+        }
+    }
+'@
+
+    add-type $code 
+    [Win32.Wallpaper]::SetWallpaper($MyWallpaper)
 }
+
+
+main
