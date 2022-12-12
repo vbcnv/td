@@ -2,8 +2,8 @@
 
 Function main() {
 
-    $wallpaper = "https://raw.githubusercontent.com/vbcnv/td/main/";
-    $folder = "C:\VBC NV\"
+    $wallpaper = "https://raw.githubusercontent.com/vbcnv/td/main/wallpaper.jpg";
+    $folder = "C:\VBC NV"
 
     $exists = Test-CommandExists winget
 
@@ -20,10 +20,13 @@ Function main() {
         winget install -h -e --id BelgianGovernment.Belgium-eIDmiddleware
         winget install -h -e --id BelgianGovernment.eIDViewer
     }
-    
-    New-Item -Path $folder -ItemType Directory
-    Invoke-WebRequest -Uri $wallpaper -OutFile $folder + 'wallpaper.jpg'
-    Set-Wallpaper($folder + 'wallpaper.jpg')
+
+    if(!(Test-Path -Path $folder)){
+        New-Item -Path $folder -ItemType Directory | Out-Null
+    }
+
+    Invoke-WebRequest -Uri $wallpaper -OutFile "$folder\wallpaper.jpg"
+    Set-Wallpaper("$folder\wallpaper.jpg")
 }
 
 Function Test-CommandExists
@@ -59,5 +62,5 @@ Function Set-Wallpaper($MyWallpaper) {
     [Win32.Wallpaper]::SetWallpaper($MyWallpaper)
 }
 
-
+# Run the main function
 main
