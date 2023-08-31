@@ -3,6 +3,7 @@
 Function main() {
 
     $wallpaper = "https://raw.githubusercontent.com/vbcnv/td/main/wallpaper.jpg";
+    $start = "https://raw.githubusercontent.com/vbcnv/td/main/start2.bin";
     $folder = "C:\VBC NV"
 
     $exists = Test-CommandExists winget
@@ -25,7 +26,11 @@ Function main() {
     }
 
     Invoke-WebRequest -Uri $wallpaper -OutFile "$folder\wallpaper.jpg"
+    Invoke-WebRequest -Uri $start -OutFile "$folder\start2.bin"
     Set-Wallpaper("$folder\wallpaper.jpg")
+    Copy-Item "$folder\start2.bin" -Destination "$env:LOCALAPPDATA\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState" -Recurse
+
+    Restart-Computer -Confirm
 }
 
 Function Test-CommandExists
