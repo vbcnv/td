@@ -15,7 +15,6 @@ Function main() {
         winget install -h -e --id Microsoft.Edge
         winget install -h -e --id Microsoft.OneDrive
         winget install -h -e --id Microsoft.Office
-        winget install -h -e --id ZeroTier.ZeroTierOne
         winget install -h -e --id 7zip.7zip
         winget install -h -e --id BelgianGovernment.Belgium-eIDmiddleware
         winget install -h -e --id BelgianGovernment.eIDViewer
