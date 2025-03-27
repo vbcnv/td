@@ -87,7 +87,6 @@ $Config = @{
 
 # Initialize logging
 Function Write-Log {
-    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true, Position=0)]
         [string]$Message,
@@ -120,7 +119,6 @@ Function Write-Log {
 
 # Check if a command exists
 Function Test-CommandExists {
-    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$true)]
         [string]$Command
@@ -144,7 +142,6 @@ Function Test-CommandExists {
 
 # Set Windows Desktop Wallpaper
 Function Set-Wallpaper {
-    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$true)]
         [string]$WallpaperPath
@@ -180,7 +177,6 @@ Function Set-Wallpaper {
 
 # Create installation directory
 Function Initialize-InstallFolder {
-    [CmdletBinding()]
     Param()
     
     Write-Log "Checking for installation folder: $($Config.InstallFolder)" -Level "INFO"
@@ -205,7 +201,6 @@ Function Initialize-InstallFolder {
 
 # Download file with progress and verification
 Function Get-FileWithProgress {
-    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$true)]
         [string]$Url,
@@ -258,7 +253,6 @@ Function Get-FileWithProgress {
 
 # Install software packages using winget
 Function Install-RequiredSoftware {
-    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$false)]
         [switch]$Interactive = $true
@@ -367,7 +361,6 @@ Function Install-RequiredSoftware {
 
 # Configure Start Menu
 Function Set-StartMenu {
-    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$true)]
         [string]$StartBinPath
@@ -395,7 +388,6 @@ Function Set-StartMenu {
 
 # Function to refresh the desktop after registry changes
 Function Update-Desktop {
-    [CmdletBinding()]
     Param()
     
     Write-Log "Refreshing desktop to apply changes..." -Level "INFO"
@@ -430,7 +422,6 @@ Function Update-Desktop {
 
 # Configure Registry Settings
 Function Set-RegistryConfigurations {
-    [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$false)]
         [switch]$Interactive = $true
@@ -530,7 +521,6 @@ Function Set-RegistryConfigurations {
 
 # Main function to orchestrate the installation process
 Function Start-Installation {
-    [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$false)]
         [switch]$NonInteractive
@@ -598,7 +588,6 @@ Function Start-Installation {
 }
 
 # Process command-line parameters
-[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$false)]
     [switch]$NonInteractive
