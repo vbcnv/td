@@ -32,7 +32,7 @@ $Config = @{
         # Disable TaskbarAI
         @{
             Path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
-            Name = "TaskbarAI"
+            Name = "TaskbarAl"
             Value = 0
             Type = "DWord"
         },
