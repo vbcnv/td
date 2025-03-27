@@ -1,4 +1,11 @@
 #Requires -RunAsAdministrator
+
+# Process command-line parameters
+Param(
+    [Parameter(Mandatory=$false)]
+    [switch]$NonInteractive
+)
+
 <#
 .SYNOPSIS
     VBC NV Workstation Setup Script
@@ -587,12 +594,7 @@ Function Start-Installation {
     }
 }
 
-# Process command-line parameters
-Param(
-    [Parameter(Mandatory=$false)]
-    [switch]$NonInteractive
-)
-
+# Main execution block
 # This allows the script to be run via iex and still receive parameters
 if ($MyInvocation.Line -match "iex|Invoke-Expression") {
     Write-Log "Script executed via Invoke-Expression" -Level "INFO"
